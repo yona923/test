@@ -25,7 +25,8 @@
         }
 
         header, footer, section {
-            padding: 20px;
+            /* 기존 20px에서 10px로 패딩 축소 */
+            padding: 10px;
         }
 
         /* 헤더 */
@@ -132,10 +133,12 @@
         /* 메인 비주얼 */
         .main-visual {
             position: relative;
-            background: url('https://picsum.photos/1200/600?grayscale') no-repeat center/cover;
+            /* 기존 랜덤 이미지 -> logo.jpg로 교체 */
+            background: url('logo.jpg') no-repeat center/cover;
             color: #fff;
             text-align: center;
-            padding: 80px 20px;
+            /* 기존 80px -> 40px로 패딩 축소 */
+            padding: 40px 20px;
         }
 
         .main-visual::before {
@@ -204,6 +207,7 @@
             margin-bottom: 20px;
         }
 
+        /* 기존 줄바꿈 제거 -> 한 줄로 */
         .brand-story p {
             max-width: 600px;
             margin: 0 auto 20px;
@@ -495,8 +499,8 @@
 
     <section class="brand-story">
         <h3>인디자인페이스, 우리의 철학</h3>
-        <p>20년 이상의 경력과 전문성을 바탕으로, 피부과 전문 자문과 고품질 제품을 사용한 맞춤 케어를 제공합니다.<br>
-        단순한 시술이 아닌 고객님의 라이프스타일까지 고려한 토탈 뷰티 솔루션을 제안합니다.</p>
+        <!-- 한 줄로 문구 변경 (줄바꿈 <br> 제거) -->
+        <p>20년 이상의 경력과 전문성을 바탕으로, 피부과 전문 자문과 고품질 제품을 사용한 맞춤 케어를 제공합니다. 단순한 시술이 아닌 고객님의 라이프스타일까지 고려한 토탈 뷰티 솔루션을 제안합니다.</p>
         <a class="btn-primary" href="#services">프로그램 알아보기</a>
     </section>
 
@@ -574,15 +578,12 @@
             </div>
         </div>
 
+        <!-- '지금 예약하고 할인받기' 버튼 제거 및 관련 div 삭제 -->
         <p style="font-size:0.9rem; text-align:center; color:#666;">
             <strong>Q. 두피케어 왜 받아야하나요?</strong><br>
             혈액 순환 장애로 약해진 모근을 강화하고 건강한 모발 성장 환경을 조성합니다.<br>
             피지, 각질, 불순물을 제거하고 산소와 영양분 공급을 최적화하여 모발 성장을 촉진합니다.
         </p>
-
-        <div style="text-align:center; margin-top:20px;">
-            <a class="btn-primary" href="#reservation">지금 예약하고 할인받기</a>
-        </div>
     </section>
 
     <section id="trial">
@@ -601,9 +602,7 @@
             체험가 프로그램은 관찬을 겸비한 AI 메디컬장비로 추가할인은 불가하며,<br>
             1일 실습숙 5명 한정입니다.
         </p>
-        <div style="text-align:center;">
-            <a class="btn-primary" href="#reservation">체험가 예약하기</a>
-        </div>
+        <!-- 체험가 예약하기 버튼 제거 -->
     </section>
 
     <section id="reviews">
