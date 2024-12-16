@@ -1,73 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timer with Alert</title>
+    <title>결정장애 해소 서비스</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 50px;
+            padding: 20px;
+            background-color: #f5f5f5;
         }
-
-        #timer-display {
-            font-size: 2em;
-            margin-bottom: 20px;
+        h1 {
+            color: #333;
         }
-
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
         button {
-            font-size: 1em;
+            margin: 10px;
             padding: 10px 20px;
-            margin: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007BFF;
         }
     </style>
 </head>
 <body>
-    <h1>Set a Timer</h1>
-    <div>
-        <label for="timer">Enter time in seconds: </label>
-        <input type="number" id="timer" min="1" placeholder="e.g., 60">
-    </div>
-    <div id="timer-display">Time left: 0 seconds</div>
-    <button onclick="startTimer()">Start Timer</button>
-    <button onclick="resetTimer()">Reset Timer</button>
+    <div class="container">
+        <h1>결정장애 해소 서비스</h1>
+        <p>무엇을 결정해야 할지 고민이라면 아래 버튼을 눌러주세요!</p>
+        <button onclick="makeDecision()">결정 도와줘!</button>
+        <button onclick="addOption()">옵션 추가하기</button>
 
-    <audio id="alert-sound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+        <div id="options">
+            <h3>옵션 목록:</h3>
+            <ul id="optionList">
+                <li>예시: 커피 마시기</li>
+                <li>예시: 산책하기</li>
+            </ul>
+        </div>
+
+        <div id="result"></div>
+    </div>
 
     <script>
-        let timerInterval;
-        let remainingTime = 0;
+        let options = ["커피 마시기", "산책하기"];
 
-        function startTimer() {
-            const inputField = document.getElementById('timer');
-            const alertSound = document.getElementById('alert-sound');
-            remainingTime = parseInt(inputField.value);
-
-            if (isNaN(remainingTime) || remainingTime <= 0) {
-                alert('Please enter a valid number greater than 0.');
-                return;
+        function makeDecision() {
+            if (options.length === 0) {
+                document.getElementById('result').innerText = "옵션이 없습니다. 추가해주세요!";
+            } else {
+                const randomIndex = Math.floor(Math.random() * options.length);
+                document.getElementById('result').innerText = `추천: ${options[randomIndex]}`;
             }
-
-            clearInterval(timerInterval);
-
-            timerInterval = setInterval(() => {
-                if (remainingTime > 0) {
-                    remainingTime--;
-                    document.getElementById('timer-display').innerText = `Time left: ${remainingTime} seconds`;
-                } else {
-                    clearInterval(timerInterval);
-                    alertSound.play();
-                    alert('Time is up!');
-                }
-            }, 1000);
         }
 
-        function resetTimer() {
-            clearInterval(timerInterval);
-            remainingTime = 0;
-            document.getElementById('timer-display').innerText = 'Time left: 0 seconds';
+        function addOption() {
+            const newOption = prompt("새 옵션을 입력하세요:");
+            if (newOption) {
+                options.push(newOption);
+                const listItem = document.createElement('li');
+                listItem.innerText = newOption;
+                document.getElementById('optionList').appendChild(listItem);
+            }
         }
     </script>
 </body>
