@@ -22,29 +22,46 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        #wheel {
-            margin: 20px auto;
+        #wheel-container {
+            position: relative;
             width: 300px;
             height: 300px;
+            margin: 20px auto;
+        }
+        #wheel {
+            width: 100%;
+            height: 100%;
             border: 10px solid #007BFF;
             border-radius: 50%;
             position: relative;
+            overflow: hidden;
+            transition: transform 4s ease-out;
         }
         .option {
             position: absolute;
             width: 50%;
             height: 50%;
-            background-color: #ffcccb;
+            background-color: rgba(255, 99, 71, 0.7);
             clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
             transform-origin: 100% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: black;
+            font-weight: bold;
+            text-align: center;
         }
         #pointer {
-            margin: 20px auto;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 30px solid #FF0000;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid red;
         }
         button {
             margin: 10px;
@@ -73,31 +90,30 @@
         <h1>결정장애 해소 룰렛</h1>
         <p>아래 버튼을 눌러 룰렛을 돌려보세요!</p>
 
-        <div id="pointer"></div>
-        <div id="wheel">
-            <!-- Options will be dynamically added here -->
+        <div id="wheel-container">
+            <div id="pointer"></div>
+            <div id="wheel"></div>
         </div>
 
         <button onclick="spinWheel()">룰렛 돌리기</button>
         <button onclick="addOption()">옵션 추가하기</button>
-
         <div id="result"></div>
     </div>
 
     <script>
         let options = ["커피 마시기", "산책하기"];
         const wheel = document.getElementById('wheel');
+        let angleStep;
 
         function createWheel() {
             wheel.innerHTML = '';
-            const angleStep = 360 / options.length;
-
+            angleStep = 360 / options.length;
             options.forEach((option, index) => {
                 const segment = document.createElement('div');
                 segment.className = 'option';
-                segment.style.backgroundColor = `hsl(${index * angleStep}, 70%, 80%)`;
                 segment.style.transform = `rotate(${index * angleStep}deg)`;
-                segment.innerHTML = `<span style="position: absolute; transform: rotate(${90 - index * angleStep}deg); transform-origin: 0 100%; font-size: 12px;">${option}</span>`;
+                segment.style.backgroundColor = `hsl(${index * angleStep}, 70%, 80%)`;
+                segment.innerHTML = `<div style='transform: rotate(${angleStep / 2}deg);'>${option}</div>`;
                 wheel.appendChild(segment);
             });
         }
@@ -107,13 +123,10 @@
                 document.getElementById('result').innerText = "옵션이 없습니다. 추가해주세요!";
                 return;
             }
-
-            const randomAngle = Math.floor(Math.random() * 360) + 1440; // Spin multiple times
-            wheel.style.transition = 'transform 4s ease-out';
+            const randomAngle = Math.floor(Math.random() * 360) + 1440;
             wheel.style.transform = `rotate(${randomAngle}deg)`;
-
             setTimeout(() => {
-                const selectedIndex = Math.floor((360 - (randomAngle % 360)) / (360 / options.length)) % options.length;
+                const selectedIndex = Math.floor((360 - (randomAngle % 360)) / angleStep) % options.length;
                 document.getElementById('result').innerText = `추천: ${options[selectedIndex]}`;
             }, 4000);
         }
