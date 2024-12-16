@@ -3,143 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결정장애 해소 룰렛</title>
+    <title>신연아 개인 홈페이지</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
             color: #333;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
+        header {
+            background-color: #4CAF50;
+            color: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        #wheel-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 20px auto;
-        }
-        #wheel {
-            width: 100%;
-            height: 100%;
-            border: 10px solid #007BFF;
-            border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-            transition: transform 4s ease-out;
-        }
-        .option {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            background-color: rgba(255, 99, 71, 0.7);
-            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-            transform-origin: 100% 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: black;
-            font-weight: bold;
             text-align: center;
         }
-        #pointer {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 30px solid red;
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
+        h1, h2 {
+            color: #4CAF50;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
             color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #result {
             margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #007BFF;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>결정장애 해소 룰렛</h1>
-        <p>아래 버튼을 눌러 룰렛을 돌려보세요!</p>
 
-        <div id="wheel-container">
-            <div id="pointer"></div>
-            <div id="wheel"></div>
-        </div>
+<header>
+    <h1>신연아의 개인 홈페이지</h1>
+    <p>"아름다움과 신뢰를 더하다"</p>
+</header>
 
-        <button onclick="spinWheel()">룰렛 돌리기</button>
-        <button onclick="addOption()">옵션 추가하기</button>
-        <div id="result"></div>
-    </div>
+<section>
+    <h2>소개</h2>
+    <p>안녕하세요! 저는 신연아입니다. 뷰티 산업에 열정을 가진 기업가로서, 현재 화장품 유통 및 소매 법인의 CEO이며 토탈 뷰티샵에서 고객 상담과 마케팅을 담당하고 있습니다.</p>
+</section>
 
-    <script>
-        let options = ["커피 마시기", "산책하기"];
-        const wheel = document.getElementById('wheel');
-        let angleStep;
+<section>
+    <h2>경력</h2>
+    <ul>
+        <li>20년 이상의 뷰티 및 화장품 업계 경험</li>
+        <li>토탈 뷰티샵 경영 및 마케팅 전략 수립</li>
+        <li>40-60대 고객을 위한 신뢰 기반 화장품 브랜드 개발</li>
+    </ul>
+</section>
 
-        function createWheel() {
-            wheel.innerHTML = '';
-            angleStep = 360 / options.length;
-            options.forEach((option, index) => {
-                const segment = document.createElement('div');
-                segment.className = 'option';
-                segment.style.transform = `rotate(${index * angleStep}deg)`;
-                segment.style.backgroundColor = `hsl(${index * angleStep}, 70%, 80%)`;
-                segment.innerHTML = `<div style='transform: rotate(${angleStep / 2}deg);'>${option}</div>`;
-                wheel.appendChild(segment);
-            });
-        }
+<section>
+    <h2>서비스</h2>
+    <p>저희 뷰티샵에서는 다음과 같은 서비스를 제공합니다:</p>
+    <ul>
+        <li>스킨케어 및 바디케어</li>
+        <li>눈썹 및 속눈썹 연장</li>
+        <li>반영구 화장</li>
+        <li>탈모 관리를 위한 힐링 산소 스케일링 프로그램</li>
+    </ul>
+</section>
 
-        function spinWheel() {
-            if (options.length === 0) {
-                document.getElementById('result').innerText = "옵션이 없습니다. 추가해주세요!";
-                return;
-            }
-            const randomAngle = Math.floor(Math.random() * 360) + 1440;
-            wheel.style.transform = `rotate(${randomAngle}deg)`;
-            setTimeout(() => {
-                const selectedIndex = Math.floor((360 - (randomAngle % 360)) / angleStep) % options.length;
-                document.getElementById('result').innerText = `추천: ${options[selectedIndex]}`;
-            }, 4000);
-        }
+<section>
+    <h2>목표</h2>
+    <p>제가 추구하는 목표는 40대에서 60대까지의 고객들에게 인기 있고 신뢰할 수 있는 화장품 브랜드를 만들어, 아름다움을 통해 삶의 만족도를 높이는 것입니다.</p>
+</section>
 
-        function addOption() {
-            const newOption = prompt("새 옵션을 입력하세요:");
-            if (newOption) {
-                options.push(newOption);
-                createWheel();
-            }
-        }
+<section>
+    <h2>연락처</h2>
+    <p>문의 사항은 언제든지 아래의 방법으로 연락 주세요:</p>
+    <ul>
+        <li>이메일: <a href="mailto:yeona@example.com">yeona@example.com</a></li>
+        <li>전화: +82 10-1234-5678</li>
+        <li>인스타그램: <a href="https://instagram.com/yeona_beauty">@yeona_beauty</a></li>
+    </ul>
+</section>
 
-        createWheel();
-    </script>
+<footer>
+    <p>&copy; 2024 신연아. 모든 권리 보유.</p>
+</footer>
+
 </body>
 </html>
