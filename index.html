@@ -67,6 +67,23 @@
         ul li:last-child {
             border-bottom: none;
         }
+        button {
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #004a99;
+        }
+        #dinner-recommendation {
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             header {
@@ -96,6 +113,24 @@
             }
         }
     </style>
+    <script>
+        function recommendDinner() {
+            const menus = [
+                "비빔밥",
+                "된장찌개",
+                "김치찌개",
+                "불고기",
+                "삼겹살",
+                "쌀국수",
+                "파스타",
+                "치킨",
+                "떡볶이",
+                "회덮밥"
+            ];
+            const randomMenu = menus[Math.floor(Math.random() * menus.length)];
+            document.getElementById("dinner-recommendation").innerText = `오늘의 저녁 메뉴 추천: ${randomMenu}`;
+        }
+    </script>
 </head>
 <body>
 
@@ -133,6 +168,13 @@
 <section>
     <h2>목표</h2>
     <p>제가 추구하는 목표는 40대에서 60대까지의 고객들에게 인기 있고 신뢰할 수 있는 화장품 브랜드를 만들어, 아름다움을 통해 삶의 만족도를 높이는 것입니다.</p>
+</section>
+
+<section>
+    <h2>저녁 메뉴 추천</h2>
+    <p>오늘 저녁 메뉴가 고민되시나요? 버튼을 눌러 메뉴를 추천받아보세요!</p>
+    <button onclick="recommendDinner()">메뉴 추천 받기</button>
+    <div id="dinner-recommendation"></div>
 </section>
 
 <section>
