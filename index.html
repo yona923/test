@@ -1,195 +1,707 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신연아 개인 홈페이지</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>인디자인페이스 | Beauty Design Group</title>
+    <meta name="description" content="인디자인페이스 - 자연의 이치에 과학을 더한 프리미엄 에스테틱. 모바일 최적화, QR코드 접근 전용.">
+
     <style>
+        :root {
+            --main-color: #381D6F;
+            --accent-color: #8667A9;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --font-family: 'Noto Sans KR', sans-serif;
+        }
+
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #333;
+            font-family: var(--font-family);
+            background: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
+            font-size: 16px;
         }
+
+        header, footer, section {
+            padding: 20px;
+        }
+
+        /* 헤더 */
         header {
-            background-color: #222;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.5em;
-            letter-spacing: 2px;
+            background: var(--main-color);
+            color: #fff;
             position: relative;
         }
-        header img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            position: relative;
-            margin-bottom: 10px;
+
+        header .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        section {
-            max-width: 900px;
-            margin: 20px auto;
-            background: #f9f9f9;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+        header h1 {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: bold;
         }
-        h1, h2 {
-            color: #222;
-            font-weight: 700;
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
         }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #222;
-            color: white;
-            margin-top: 40px;
-            font-size: 0.9em;
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            display: block;
         }
-        a {
-            color: #0066cc;
-            text-decoration: none;
+
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(56,29,111,0.95);
+            overflow-x: hidden;
+            transition: width 0.3s ease;
+            z-index: 999;
+            padding-top: 70px;
         }
-        a:hover {
-            text-decoration: underline;
-        }
-        ul {
+
+        .mobile-nav-overlay ul {
             list-style: none;
             padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
         }
-        ul li {
-            padding: 8px 0;
+
+        .mobile-nav-overlay a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .mobile-nav-overlay a:hover {
+            text-decoration: underline;
+        }
+
+        .mobile-nav-overlay.show {
+            width: 100%;
+        }
+
+        .mobile-nav-overlay .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 상단 프로모션 배너 */
+        .top-banner {
+            background: #e4d6f3;
+            color: #000;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.95rem;
+        }
+
+        .top-banner strong {
+            color: var(--main-color);
+            font-weight: bold;
+        }
+
+        /* 메인 비주얼 */
+        .main-visual {
+            position: relative;
+            background: url('https://picsum.photos/1200/600?grayscale') no-repeat center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .main-visual::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 0;
+        }
+
+        .main-visual h2, .main-visual p, .main-visual .btn-primary {
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-visual h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+
+        .main-visual p {
+            font-size: 1rem;
+            margin: 15px 0 25px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--accent-color);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: #7a5a9a;
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section h3 {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+        }
+
+        .brand-story {
+            background: #fff;
+            text-align: center;
+        }
+
+        .brand-story h3 {
+            margin-bottom: 20px;
+        }
+
+        .brand-story p {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .program-list table, .trial-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .program-list th, .program-list td, .trial-table th, .trial-table td {
+            padding: 8px;
             border-bottom: 1px solid #ddd;
         }
-        ul li:last-child {
-            border-bottom: none;
+
+        .program-list th, .trial-table th {
+            background: #eee;
+            font-weight: bold;
         }
-        button {
+
+        /* 정가 및 체험가 열 오른쪽 정렬 */
+        .program-list th:nth-child(2), 
+        .program-list td:nth-child(2),
+        .trial-table th:nth-child(2),
+        .trial-table td:nth-child(2),
+        .trial-table th:nth-child(3),
+        .trial-table td:nth-child(3) {
+            text-align: right;
+        }
+
+        .discount-section {
+            background: #eceffd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .discount-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .discount-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .discount-item {
+            flex: 0 1 100%;
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .discount-item h5 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .review-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            font-size: 0.9rem;
+        }
+
+        .review-item .customer {
+            margin-top: 10px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .info p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .info .highlight {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .newsletter {
+            background: #f0eefc;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .newsletter h3 {
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .newsletter form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .newsletter input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            font-size: 0.9rem;
+        }
+
+        .newsletter button {
             padding: 10px 20px;
-            background-color: #0066cc;
+            background: var(--accent-color);
             color: #fff;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        button:hover {
-            background-color: #004a99;
-        }
-        #dinner-recommendation {
-            margin-top: 20px;
-            font-size: 1.1em;
+            font-size: 0.9rem;
             font-weight: bold;
-        }
-        /* Responsive Design */
-        @media screen and (max-width: 768px) {
-            header {
-                font-size: 1.2em;
-            }
-            section {
-                padding: 20px;
-                margin: 10px;
-            }
-            header img {
-                width: 100px;
-                height: 100px;
-            }
+            cursor: pointer;
         }
 
-        @media screen and (max-width: 480px) {
-            header {
-                font-size: 1em;
-                padding: 10px;
+        .newsletter button:hover {
+            background: #7a5a9a;
+        }
+
+        .sns-section {
+            background: #fff;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .sns-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .sns-feed {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .sns-feed img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .faq-section {
+            background: #fff;
+            padding: 20px;
+        }
+
+        .faq-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            margin-bottom: 10px;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .faq-item p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        footer {
+            background: var(--main-color);
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.8rem;
+            position: relative;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-bottom: 20px;
+            background: #fff;
+            color: var(--main-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
             }
-            section {
-                padding: 15px;
+
+            header h1 {
+                font-size: 1.4rem;
             }
-            header img {
-                width: 80px;
-                height: 80px;
+
+            .main-visual h2 {
+                font-size: 1.5rem;
+            }
+
+            .main-visual p {
+                font-size: 0.95rem;
+            }
+
+            .discount-item {
+                flex: 0 1 100%;
+            }
+
+            .review-list {
+                gap: 10px;
+            }
+
+            .sns-feed img {
+                width: 50px;
+                height: 50px;
             }
         }
     </style>
-    <script>
-        function recommendDinner() {
-            const menus = [
-                "비빔밥",
-                "된장찌개",
-                "김치찌개",
-                "불고기",
-                "삼겹살",
-                "쌀국수",
-                "파스타",
-                "치킨",
-                "떡볶이",
-                "회덮밥"
-            ];
-            const randomMenu = menus[Math.floor(Math.random() * menus.length)];
-            document.getElementById("dinner-recommendation").innerText = `오늘의 저녁 메뉴 추천: ${randomMenu}`;
-        }
-    </script>
 </head>
-<body>
+<body id="top">
 
-<header>
-    <img src="./%EC%8B%A0%EC%97%B0%EC%95%84.jpg" alt="신연아 사진">
-    <h1>신연아의 개인 홈페이지</h1>
-    <p>"아름다움과 신뢰를 더하다"</p>
-</header>
+    <header>
+        <div class="inner">
+            <h1>인디자인페이스</h1>
+            <button class="hamburger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-nav-overlay">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
 
-<section>
-    <h2>소개</h2>
-    <p>안녕하세요! 저는 신연아입니다. 뷰티 산업에 열정을 가진 기업가로서, 현재 화장품 유통 및 소매 법인의 CEO이며 토탈 뷰티샵에서 고객 상담과 마케팅을 담당하고 있습니다.</p>
-</section>
+    <div class="top-banner">
+        <strong>신규 고객 10% 할인</strong> 이번 주까지! 지금 예약하시면 추가 서비스 증정!
+    </div>
 
-<section>
-    <h2>경력</h2>
-    <ul>
-        <li>20년 이상의 뷰티 및 화장품 업계 경험</li>
-        <li>토탈 뷰티샵 경영 및 마케팅 전략 수립</li>
-        <li>40-60대 고객을 위한 신뢰 기반 화장품 브랜드 개발</li>
-    </ul>
-</section>
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay" aria-hidden="true">
+        <button class="close-btn" aria-label="메뉴 닫기">&times;</button>
+        <ul>
+            <li><a href="#services">프로그램 소개</a></li>
+            <li><a href="#trial">체험 프로그램</a></li>
+            <li><a href="#reviews">후기</a></li>
+            <li><a href="#info">오시는 길</a></li>
+            <li><a href="#reservation">예약하기</a></li>
+        </ul>
+    </div>
 
-<section>
-    <h2>서비스</h2>
-    <p>저희 뷰티샵에서는 다음과 같은 서비스를 제공합니다:</p>
-    <ul>
-        <li>스킨케어 및 바디케어</li>
-        <li>눈썹 및 속눈썹 연장</li>
-        <li>반영구 화장</li>
-        <li>탈모 관리를 위한 힐링 산소 스케일링 프로그램</li>
-    </ul>
-</section>
+    <div class="main-visual">
+        <h2>내외적 아름다움의 하모니</h2>
+        <p>인디자인페이스에서 맞춤형 프리미엄 에스테틱을 경험해보세요.</p>
+        <a class="btn-primary" href="#reservation">지금 예약하기</a>
+    </div>
 
-<section>
-    <h2>목표</h2>
-    <p>제가 추구하는 목표는 40대에서 60대까지의 고객들에게 인기 있고 신뢰할 수 있는 화장품 브랜드를 만들어, 아름다움을 통해 삶의 만족도를 높이는 것입니다.</p>
-</section>
+    <section class="brand-story">
+        <h3>인디자인페이스, 우리의 철학</h3>
+        <p>20년 이상의 경력과 전문성을 바탕으로, 피부과 전문 자문과 고품질 제품을 사용한 맞춤 케어를 제공합니다.<br>
+        단순한 시술이 아닌 고객님의 라이프스타일까지 고려한 토탈 뷰티 솔루션을 제안합니다.</p>
+        <a class="btn-primary" href="#services">프로그램 알아보기</a>
+    </section>
 
-<section>
-    <h2>저녁 메뉴 추천</h2>
-    <p>오늘 저녁 메뉴가 고민되시나요? 버튼을 눌러 메뉴를 추천받아보세요!</p>
-    <button onclick="recommendDinner()">메뉴 추천 받기</button>
-    <div id="dinner-recommendation"></div>
-</section>
+    <section id="services">
+        <h3>프로그램 소개</h3>
 
-<section>
-    <h2>연락처</h2>
-    <p>문의 사항은 언제든지 아래의 방법으로 연락 주세요:</p>
-    <ul>
-        <li>이메일: <a href="mailto:yeona@example.com">yeona@example.com</a></li>
-        <li>전화: +82 10-1234-5678</li>
-        <li>인스타그램: <a href="https://instagram.com/yeona_beauty">@yeona_beauty</a></li>
-    </ul>
-</section>
+        <div class="program-group">
+            <h4>메디컬스킨 케어 프로그램</h4>
+            <div class="program-list">
+                <table>
+                    <tr><th>시술명</th><th>정가</th></tr>
+                    <tr><td>물광필테라피</td><td>59,000원</td></tr>
+                    <tr><td>카복시 CO2</td><td>69,000원</td></tr>
+                    <tr><td>링클톡신테라피</td><td>69,000원</td></tr>
+                    <tr><td>쟈크 테라피</td><td>99,000원</td></tr>
+                    <tr><td>물결주사테라피</td><td>99,000원</td></tr>
+                    <tr><td>콜라겐에이징테라피</td><td>99,000원</td></tr>
+                    <tr><td>지우개주사테라피</td><td>159,000원</td></tr>
+                </table>
+            </div>
+        </div>
 
-<footer>
-    <p>&copy; 2024 신연아. 모든 권리 보유.</p>
-</footer>
+        <div class="program-group">
+            <h4>힐링 전신바디 케어 프로그램</h4>
+            <div class="program-list">
+                <table>
+                    <tr><th>시술명</th><th>정가</th></tr>
+                    <tr><td>전신바바웨이 테라피(80분)</td><td>199,000원</td></tr>
+                    <tr><td>전신 엔더몰로지(50분)</td><td>199,000원</td></tr>
+                    <tr><td>전신스카 테라피</td><td>199,000원</td></tr>
+                    <tr><td>전신수기 테라피(80분)</td><td>219,000원</td></tr>
+                </table>
+            </div>
+        </div>
 
+        <div class="program-group">
+            <h4>다이어트 케어 프로그램</h4>
+            <div class="program-list">
+                <table>
+                    <tr><th>시술명</th><th>정가</th></tr>
+                    <tr><td>소닉 셀룰라이트 분해관리</td><td>49,000원</td></tr>
+                    <tr><td>포인트핏 군살관리</td><td>79,000원</td></tr>
+                    <tr><td>전신드림빠 파뇨 디톡스(50분)</td><td>129,000원</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="program-group">
+            <h4>두피 케어 프로그램</h4>
+            <div class="program-list">
+                <table>
+                    <tr><th>시술명</th><th>정가</th></tr>
+                    <tr><td>힐링 산소 스케일링</td><td>89,000원</td></tr>
+                    <tr><td>MTS제포 강화관리</td><td>129,000원</td></tr>
+                    <tr><td>단/다발성 원형탈모 케어</td><td>149,000원</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="discount-section">
+            <h4>할인 혜택</h4>
+            <div class="discount-list">
+                <div class="discount-item">
+                    <h5>AI 메디컬스킨 케어 20% 할인권</h5>
+                    <p>[6회 관리 시 추가 10% 할인]<br>※ 체험가 프로그램 적용 불가 / 추가할인 불가</p>
+                </div>
+                <div class="discount-item">
+                    <h5>다이어트 케어 25% 할인권</h5>
+                    <p>[6회 관리 시 추가 10% 할인]<br>※ 체험가 프로그램 적용 불가 / 추가할인 불가</p>
+                </div>
+                <div class="discount-item">
+                    <h5>두피탈모 케어 40% 할인권</h5>
+                    <p>[6회 관리 시 추가 10% 할인]<br>※ 체험가 프로그램 적용 불가 / 추가할인 불가</p>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size:0.9rem; text-align:center; color:#666;">
+            <strong>Q. 두피케어 왜 받아야하나요?</strong><br>
+            혈액 순환 장애로 약해진 모근을 강화하고 건강한 모발 성장 환경을 조성합니다.<br>
+            피지, 각질, 불순물을 제거하고 산소와 영양분 공급을 최적화하여 모발 성장을 촉진합니다.
+        </p>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a class="btn-primary" href="#reservation">지금 예약하고 할인받기</a>
+        </div>
+    </section>
+
+    <section id="trial">
+        <h3>AI 메디컬스킨 체험가 프로그램</h3>
+        <table class="trial-table">
+            <tr>
+                <th>시술명</th><th>정가</th><th>체험가</th>
+            </tr>
+            <tr><td>하이푸울킵세라(300샷)</td><td>99,000원</td><td>49,000원</td></tr>
+            <tr><td>울트라 써마젯(300샷)</td><td>199,000원</td><td>99,000원</td></tr>
+            <tr><td>여드름 문제성피부 AC프코몽관리</td><td>69,000원</td><td>49,000원</td></tr>
+            <tr><td>홍조, 모공 문제성피부 트리플토닝</td><td>159,000원</td><td>89,000원</td></tr>
+            <tr><td>최첨단 엑소 줌 엑소 에이징 테라피</td><td>179,000원</td><td>99,000원</td></tr>
+        </table>
+        <p style="font-size:0.9rem; text-align:center; color:#666;">
+            체험가 프로그램은 관찬을 겸비한 AI 메디컬장비로 추가할인은 불가하며,<br>
+            1일 실습숙 5명 한정입니다.
+        </p>
+        <div style="text-align:center;">
+            <a class="btn-primary" href="#reservation">체험가 예약하기</a>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <h3>고객 후기</h3>
+        <div class="review-list">
+            <div class="review-item">
+                <p>"메디컬스킨 케어 받고 나서 피부톤이 맑아지고 탄력도 살아났어요! 세심한 상담 덕에 더 믿음이 갔습니다."</p>
+                <span class="customer">- 김미영 님</span>
+            </div>
+            <div class="review-item">
+                <p>"두피 케어 프로그램 받고 나니 머리결이 한결 건강해졌어요. 믿고 맡길 수 있는 곳이라 재방문 의사 100%입니다."</p>
+                <span class="customer">- 박준현 님</span>
+            </div>
+            <div class="review-item">
+                <p>"다이어트 케어 관리 후 군살 정리에 도움이 많이 됐어요. 특별한 관리법으로 자신감이 생겼습니다."</p>
+                <span class="customer">- 이소라 님</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="info" class="info">
+        <h3>오시는 길 & 정보</h3>
+        <p><span class="highlight">주소:</span> 경북 포항시 남구 대이로 185 1층 (주소를 길게 눌러 복사 가능)</p>
+        <p><span class="highlight">영업시간:</span> 평일 10:00 ~ 20:00 / 토요일 10:00 ~ 17:00 / 일요일 휴무</p>
+        <p><span class="highlight">문의전화:</span> <a href="tel:0212345678" style="text-decoration:none;color:var(--accent-color);font-weight:bold;">02-1234-5678 전화걸기</a></p>
+    </section>
+
+    <section id="reservation" class="reservation">
+        <h3>예약하기</h3>
+        <p>네이버 예약을 통해 편리하게 예약하세요. 지금 예약하면 신규고객 할인 혜택 적용!</p>
+        <a class="btn-primary" href="https://naver.me/IFgAyB23" target="_blank" rel="noopener">네이버 예약 바로가기</a>
+    </section>
+
+    <section class="newsletter">
+        <h3>이벤트 & 팁 받아보기</h3>
+        <p>정기적인 스킨케어 팁, 시즌별 이벤트, 할인 혜택 정보를 받아보세요!</p>
+        <form action="#" method="post">
+            <input type="email" name="email" placeholder="이메일 주소" required>
+            <button type="submit">구독하기</button>
+        </form>
+    </section>
+
+    <section class="sns-section">
+        <h3>인디자인페이스 인스타그램</h3>
+        <p>최신 시술 사례, 이벤트 소식을 실시간 확인하세요.</p>
+        <div class="sns-feed">
+            <img src="https://picsum.photos/60/60?random=1" alt="인스타 이미지1">
+            <img src="https://picsum.photos/60/60?random=2" alt="인스타 이미지2">
+            <img src="https://picsum.photos/60/60?random=3" alt="인스타 이미지3">
+        </div>
+        <p style="margin-top:10px;">
+            <a href="https://www.instagram.com/indesignface" target="_blank" rel="noopener" style="color:var(--accent-color); text-decoration:underline;">인스타그램 바로가기</a>
+        </p>
+    </section>
+
+    <section class="faq-section">
+        <h3>자주 묻는 질문</h3>
+        <div class="faq-item">
+            <strong>Q. 예약 변경은 어떻게 하나요?</strong>
+            <p>A. 네이버 예약 페이지 또는 전화 문의로 처리 가능합니다.</p>
+        </div>
+        <div class="faq-item">
+            <strong>Q. 주차 가능 여부?</strong>
+            <p>A. 매장 앞 주차 가능, 인근 유료주차장도 이용 가능합니다.</p>
+        </div>
+    </section>
+
+    <footer>
+        <a class="back-to-top" href="#top">맨 위로 가기</a>
+        <p>&copy; 2024 인디자인페이스. All Rights Reserved.</p>
+        <p><a href="#">개인정보처리방침</a> | <a href="#">이용약관</a></p>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+        const closeBtn = document.querySelector('.close-btn');
+
+        hamburger.addEventListener('click', () => {
+            const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+            hamburger.setAttribute('aria-expanded', !expanded);
+            mobileNavOverlay.setAttribute('aria-hidden', expanded);
+            mobileNavOverlay.classList.toggle('show');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            hamburger.setAttribute('aria-expanded', false);
+            mobileNavOverlay.setAttribute('aria-hidden', true);
+            mobileNavOverlay.classList.remove('show');
+        });
+
+        document.querySelectorAll('.mobile-nav-overlay a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.setAttribute('aria-expanded', false);
+                mobileNavOverlay.setAttribute('aria-hidden', true);
+                mobileNavOverlay.classList.remove('show');
+            });
+        });
+    </script>
 </body>
 </html>
