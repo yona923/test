@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer with Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #timer-display {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Set a Timer</h1>
+    <div>
+        <label for="timer">Enter time in seconds: </label>
+        <input type="number" id="timer" min="1" placeholder="e.g., 60">
+    </div>
+    <div id="timer-display">Time left: 0 seconds</div>
+    <button onclick="startTimer()">Start Timer</button>
+    <button onclick="resetTimer()">Reset Timer</button>
+
+    <audio id="alert-sound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+
+    <script>
+        let timerInterval;
+        let remainingTime = 0;
+
+        function startTimer() {
+            const inputField = document.getElementById('timer');
+            const alertSound = document.getElementById('alert-sound');
+            remainingTime = parseInt(inputField.value);
+
+            if (isNaN(remainingTime) || remainingTime <= 0) {
+                alert('Please enter a valid number greater than 0.');
+                return;
+            }
+
+            clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                if (remainingTime > 0) {
+                    remainingTime--;
+                    document.getElementById('timer-display').innerText = `Time left: ${remainingTime} seconds`;
+                } else {
+                    clearInterval(timerInterval);
+                    alertSound.play();
+                    alert('Time is up!');
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            remainingTime = 0;
+            document.getElementById('timer-display').innerText = 'Time left: 0 seconds';
+        }
+    </script>
+</body>
+</html>
