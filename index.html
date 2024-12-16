@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결정장애 해소 서비스</title>
+    <title>결정장애 해소 룰렛</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,6 +21,30 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #wheel {
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            border: 10px solid #007BFF;
+            border-radius: 50%;
+            position: relative;
+        }
+        .option {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background-color: #ffcccb;
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            transform-origin: 100% 100%;
+        }
+        #pointer {
+            margin: 20px auto;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 30px solid #FF0000;
         }
         button {
             margin: 10px;
@@ -46,43 +70,63 @@
 </head>
 <body>
     <div class="container">
-        <h1>결정장애 해소 서비스</h1>
-        <p>무엇을 결정해야 할지 고민이라면 아래 버튼을 눌러주세요!</p>
-        <button onclick="makeDecision()">결정 도와줘!</button>
-        <button onclick="addOption()">옵션 추가하기</button>
+        <h1>결정장애 해소 룰렛</h1>
+        <p>아래 버튼을 눌러 룰렛을 돌려보세요!</p>
 
-        <div id="options">
-            <h3>옵션 목록:</h3>
-            <ul id="optionList">
-                <li>예시: 커피 마시기</li>
-                <li>예시: 산책하기</li>
-            </ul>
+        <div id="pointer"></div>
+        <div id="wheel">
+            <!-- Options will be dynamically added here -->
         </div>
+
+        <button onclick="spinWheel()">룰렛 돌리기</button>
+        <button onclick="addOption()">옵션 추가하기</button>
 
         <div id="result"></div>
     </div>
 
     <script>
         let options = ["커피 마시기", "산책하기"];
+        const wheel = document.getElementById('wheel');
 
-        function makeDecision() {
+        function createWheel() {
+            wheel.innerHTML = '';
+            const angleStep = 360 / options.length;
+
+            options.forEach((option, index) => {
+                const segment = document.createElement('div');
+                segment.className = 'option';
+                segment.style.backgroundColor = `hsl(${index * angleStep}, 70%, 80%)`;
+                segment.style.transform = `rotate(${index * angleStep}deg)`;
+                segment.innerHTML = `<span style="position: absolute; transform: rotate(${90 - index * angleStep}deg); transform-origin: 0 100%; font-size: 12px;">${option}</span>`;
+                wheel.appendChild(segment);
+            });
+        }
+
+        function spinWheel() {
             if (options.length === 0) {
                 document.getElementById('result').innerText = "옵션이 없습니다. 추가해주세요!";
-            } else {
-                const randomIndex = Math.floor(Math.random() * options.length);
-                document.getElementById('result').innerText = `추천: ${options[randomIndex]}`;
+                return;
             }
+
+            const randomAngle = Math.floor(Math.random() * 360) + 1440; // Spin multiple times
+            wheel.style.transition = 'transform 4s ease-out';
+            wheel.style.transform = `rotate(${randomAngle}deg)`;
+
+            setTimeout(() => {
+                const selectedIndex = Math.floor((360 - (randomAngle % 360)) / (360 / options.length)) % options.length;
+                document.getElementById('result').innerText = `추천: ${options[selectedIndex]}`;
+            }, 4000);
         }
 
         function addOption() {
             const newOption = prompt("새 옵션을 입력하세요:");
             if (newOption) {
                 options.push(newOption);
-                const listItem = document.createElement('li');
-                listItem.innerText = newOption;
-                document.getElementById('optionList').appendChild(listItem);
+                createWheel();
             }
         }
+
+        createWheel();
     </script>
 </body>
 </html>
