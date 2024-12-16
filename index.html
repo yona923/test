@@ -25,8 +25,7 @@
         }
 
         header, footer, section {
-            /* 기존 20px에서 10px로 패딩 축소 */
-            padding: 10px;
+            padding: 20px;
         }
 
         /* 헤더 */
@@ -133,12 +132,10 @@
         /* 메인 비주얼 */
         .main-visual {
             position: relative;
-            /* 기존 랜덤 이미지 -> logo.jpg로 교체 */
             background: url('logo.jpg') no-repeat center/cover;
             color: #fff;
             text-align: center;
-            /* 기존 80px -> 40px로 패딩 축소 */
-            padding: 40px 20px;
+            padding: 80px 20px;
         }
 
         .main-visual::before {
@@ -150,7 +147,8 @@
             z-index: 0;
         }
 
-        .main-visual h2, .main-visual p, .main-visual .btn-primary {
+        .main-visual h2,
+        .main-visual p {
             position: relative;
             z-index: 1;
         }
@@ -207,7 +205,6 @@
             margin-bottom: 20px;
         }
 
-        /* 기존 줄바꿈 제거 -> 한 줄로 */
         .brand-story p {
             max-width: 600px;
             margin: 0 auto 20px;
@@ -215,24 +212,29 @@
             font-size: 0.95rem;
         }
 
-        .program-list table, .trial-table {
+        .program-list table,
+        .trial-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9rem;
         }
 
-        .program-list th, .program-list td, .trial-table th, .trial-table td {
+        .program-list th,
+        .program-list td,
+        .trial-table th,
+        .trial-table td {
             padding: 8px;
             border-bottom: 1px solid #ddd;
         }
 
-        .program-list th, .trial-table th {
+        .program-list th,
+        .trial-table th {
             background: #eee;
             font-weight: bold;
         }
 
         /* 정가 및 체험가 열 오른쪽 정렬 */
-        .program-list th:nth-child(2), 
+        .program-list th:nth-child(2),
         .program-list td:nth-child(2),
         .trial-table th:nth-child(2),
         .trial-table td:nth-child(2),
@@ -494,19 +496,17 @@
     <div class="main-visual">
         <h2>내외적 아름다움의 하모니</h2>
         <p>인디자인페이스에서 맞춤형 프리미엄 에스테틱을 경험해보세요.</p>
-        <a class="btn-primary" href="#reservation">지금 예약하기</a>
+        <!-- 메인 비주얼 버튼(지금 예약하기) 삭제됨 -->
     </div>
 
     <section class="brand-story">
         <h3>인디자인페이스, 우리의 철학</h3>
-        <!-- 한 줄로 문구 변경 (줄바꿈 <br> 제거) -->
         <p>20년 이상의 경력과 전문성을 바탕으로, 피부과 전문 자문과 고품질 제품을 사용한 맞춤 케어를 제공합니다. 단순한 시술이 아닌 고객님의 라이프스타일까지 고려한 토탈 뷰티 솔루션을 제안합니다.</p>
-        <a class="btn-primary" href="#services">프로그램 알아보기</a>
+        <!-- "프로그램 알아보기" 버튼 삭제됨 -->
     </section>
 
     <section id="services">
         <h3>프로그램 소개</h3>
-
         <div class="program-group">
             <h4>메디컬스킨 케어 프로그램</h4>
             <div class="program-list">
@@ -578,7 +578,6 @@
             </div>
         </div>
 
-        <!-- '지금 예약하고 할인받기' 버튼 제거 및 관련 div 삭제 -->
         <p style="font-size:0.9rem; text-align:center; color:#666;">
             <strong>Q. 두피케어 왜 받아야하나요?</strong><br>
             혈액 순환 장애로 약해진 모근을 강화하고 건강한 모발 성장 환경을 조성합니다.<br>
@@ -602,7 +601,6 @@
             체험가 프로그램은 관찬을 겸비한 AI 메디컬장비로 추가할인은 불가하며,<br>
             1일 실습숙 5명 한정입니다.
         </p>
-        <!-- 체험가 예약하기 버튼 제거 -->
     </section>
 
     <section id="reviews">
